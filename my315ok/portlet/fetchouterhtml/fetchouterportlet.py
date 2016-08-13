@@ -6,8 +6,9 @@ from zope import schema
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
-from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
-from Products.ATContentTypes.interface import IATFolder
+# from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+# from Products.ATContentTypes.interface import IATFolder
+from plone.app.contenttypes.interfaces import IFolder
 
 import re
 from datetime import datetime,timedelta
@@ -310,7 +311,7 @@ class IFetchOuterPortlet(IPortletDataProvider):
     target_folder = schema.Choice(title=_a(u"Target folder"),
                                   description=_a(u"Find the folder which provides the items to list"),
                                   required=True,
-                                  source=SearchableTextSourceBinder({'object_provides' : IATFolder.__identifier__},
+                                  source=SearchableTextSourceBinder({'object_provides' : IFolder.__identifier__},
                                                                     default_query='path:'))
     tmpdocid = schema.TextLine(title=_(u"doc id"),
                        description=_(u"the generated doc id that using for cache out html source."),
@@ -544,7 +545,7 @@ class AddForm(base.AddForm):
     constructs the assignment that is being added.
     """
     form_fields = form.Fields(IFetchOuterPortlet)
-    form_fields['target_folder'].custom_widget = UberSelectionWidget
+#     form_fields['target_folder'].custom_widget = UberSelectionWidget
     
     label = _a(u"Add Collection Portlet")
     description = _a(u"This portlet display a listing of items from a Collection.")
@@ -561,7 +562,7 @@ class EditForm(base.EditForm):
     zope.formlib which fields to display.
     """
     form_fields = form.Fields(IFetchOuterPortlet)
-    form_fields['target_folder'].custom_widget = UberSelectionWidget
+#     form_fields['target_folder'].custom_widget = UberSelectionWidget
 
     label = _a(u"Edit Collection Portlet")
     description = _a(u"This portlet display a listing of items from a Collection.")

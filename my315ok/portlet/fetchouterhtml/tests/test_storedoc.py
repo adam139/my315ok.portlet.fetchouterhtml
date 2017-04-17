@@ -34,8 +34,7 @@ class TestPortlet(TestCase):
                           "<div>create html from python</div>")
        # tmp = self.folder.doc.getModificationDate()
         then = self.folder.doc.modified()
-        import pdb
-        pdb.set_trace()
+
         di = timedelta(hours = 24)
         
         now =   DateTime()
